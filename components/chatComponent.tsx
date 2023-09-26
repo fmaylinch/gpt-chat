@@ -31,6 +31,12 @@ export default function ChatComponent() {
                     Send message
                 </button>
             </form>
+
+            <button
+                className="rounded-md bg-red-600 p-2 mt-12"
+                onClick={() => open("api/auth/signout")}>
+                Sign out
+            </button>
         </div>
     )
 }
