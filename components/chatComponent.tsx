@@ -6,7 +6,7 @@ export default function ChatComponent() {
     // Vercel AI SDK
     const { input, handleInputChange, handleSubmit, messages } = useChat();
 
-    console.log(messages);
+    //console.log("messages", messages);
 
     return (
         <div>

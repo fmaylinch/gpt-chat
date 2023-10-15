@@ -2,12 +2,12 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials" 
 
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
-        GitHubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string,
-        }),
+        //GitHubProvider({
+        //    clientId: process.env.GITHUB_ID as string,
+        //    clientSecret: process.env.GITHUB_SECRET as string,
+        //}),
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -24,7 +24,7 @@ export const options: NextAuthOptions = {
             async authorize(credentials) {
                 // TODO - check with database
                 // https://next-auth.js.org/configuration/providers/credentials
-                const user = { id: "1", name: "fmay", password: "my-pass" }
+                const user = { id: "1", name: "fake-user", password: "fake-pass" }
 
                 // loging by GitHub we don't get here
                 // TODO - I have to check the username somewhere else
