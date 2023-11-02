@@ -19,7 +19,7 @@ export default function ChatComponent() {
                 )
             })}
 
-            <form className="mt-12" onSubmit={handleSubmit}>
+            <form className="mt-10" onSubmit={handleSubmit}>
                 <p>User message</p>
                 <textarea
                     value={input}
