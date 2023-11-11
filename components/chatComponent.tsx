@@ -1,5 +1,7 @@
 "use client"
 import { useChat, Message } from "ai/react"
+import { ReactNode } from "react";
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 export default function ChatComponent() {
 
@@ -14,7 +16,7 @@ export default function ChatComponent() {
                 return (
                     <div key={message.id}>
                         <h3 className="text-lg font-semibold mt-2">{message.role}</h3>
-                        <p>{message.content}</p>
+                        <div>{parseContent(message.content)}</div>
                     </div>
                 )
             })}
@@ -40,3 +42,45 @@ export default function ChatComponent() {
         </div>
     )
 }
+
+function parseContent(text: string) : Array<ReactNode> {
+    const lines = text.split('\n');
+    return stringsToDomElems(lines);
+}
+
+function stringsToDomElems(strings: Array<string>) {
+    //console.log(strings);
+    let result : Array<ReactNode> = [];
+    let code : string | undefined = undefined;
+    let lang : string | undefined = undefined;
+    const orderedListRegex = /^([0-9]+)\./;
+    strings.forEach(str => {
+      if (str.startsWith('```')) {
+        if (code == undefined) {
+          //console.log("Starting code");
+          code = ""; // start code block
+          lang = str.substring(3);
+        } else {
+          //console.log("Finishing code:\n" + code);
+          result.push(<SyntaxHighlighter language={lang}>{code}</SyntaxHighlighter>)
+          code = undefined; // finish code block
+          lang = undefined;
+        }
+      } else {
+        if (code == undefined) {
+          // TODO - use some Markdown to HTML utility
+          if (str.startsWith('- ')) {
+            result.push(<li>{str.substring(2)}</li>);
+          } else {
+            result.push(<p>{str}</p>);
+          }
+        } else {
+          code += str + "\n"; // building code block
+        }
+      }
+    })
+    if (code != undefined) { // code pending to be closed
+        result.push(<SyntaxHighlighter language={lang}>{code}</SyntaxHighlighter>)
+    }
+    return result.map((x, i) => (<div key={i}>{x}</div>));
+  }

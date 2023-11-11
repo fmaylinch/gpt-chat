@@ -9,7 +9,7 @@ export default function Home() {
   // Anyway, the session has this value:
   // { data: undefined, status: 'loading', update: [Function: update] }
   const session = useSession();
-  console.log("session-info", session);
+  //console.log("session-info", session);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
