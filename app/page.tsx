@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div className='bg-slate-800 w-full p-2 text-gray-300'>
-        <h2 className='text-2xl'>GPT-4 Streaming Chat App</h2>
+        <h2 className='text-2xl mb-10'>GPT Chat</h2>
         <ChatComponent/>
       </div>
     </main>

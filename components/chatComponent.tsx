@@ -6,23 +6,33 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 export default function ChatComponent() {
 
     // Vercel AI SDK
-    const { input, handleInputChange, handleSubmit, messages } = useChat();
+    const { input, handleInputChange, handleSubmit, messages } = useChat({
+        initialInput: "gpt-4 "
+    });
 
     //console.log("messages", messages);
 
     return (
         <div>
             {messages.map(message => {
-                return (
-                    <div key={message.id}>
-                        <h3 className="text-lg font-semibold mt-2">{message.role}</h3>
+                return message.role == "user" ? (
+                    <div key={message.id} className="mt-5">
+                        <p className="font-semibold">{message.role}</p>
+                        <textarea
+                            value={message.content}
+                            className="mt-2 w-full bg-slate-600 p-2"
+                        />
+                    </div>
+                ) : (
+                    <div key={message.id} className="mt-5">
+                        <p className="font-semibold">{message.role}</p>
                         <div>{parseContent(message.content)}</div>
                     </div>
                 )
             })}
 
             <form className="mt-10" onSubmit={handleSubmit}>
-                <p>User message</p>
+                <p className="font-semibold">user</p>
                 <textarea
                     value={input}
                     onChange={handleInputChange}
